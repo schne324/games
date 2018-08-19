@@ -1,0 +1,55 @@
+
+.games-list {
+  display: grid;
+  list-style: none;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  align-items: center;
+  justify-content: center;
+  margin: 45px 0;
+  padding: 0;
+}
+
+.video-game {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2.5em;
+  margin: 45px 0;
+}
+
+.games-list li {
+  text-align: center;
+}
+
+.games-list a {
+  display: flex;
+  margin: 0 auto;
+  text-decoration: none;
+  background: #1D1E19;
+  color: #DEE8E6;
+  padding: 1.2em;
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  font-size: 1.5em;
+  font-weight: 100;
+  transition: all .75s;
+  justify-content: center;
+  align-items: center;
+}
+
+.games-list a:hover,
+.games-list a:focus {
+  background: #0F635B;
+  transition: all .75s;
+  outline: 0;
+  box-shadow:
+    0 0 0 2px #0F635B, 0 0 0 4px #DEE8E6, 0 0 0 6px #0F635B, 0 0 0 8px #DEE8E6,
+    0 0 0 10px #0F635B, 0 0 0 12px #DEE8E6, 0 0 0 14px #0F635B, 0 0 0 16px #DEE8E6;
+}
+
+.games-list a:active {
+  box-shadow:
+    0 0 0 2px #DEE8E6, 0 0 0 4px #0F635B, 0 0 0 6px #DEE8E6, 0 0 0 8px #0F635B,
+    0 0 0 10px #DEE8E6, 0 0 0 12px #0F635B, 0 0 0 14px #DEE8E6, 0 0 0 16px #0F635B;
+}

@@ -1,0 +1,83 @@
+  .desc {
+  font-style: italic;
+  font-weight: 100;
+  font-size: .9em;
+  margin-left: 5px;
+}
+
+.card table {
+  border: 0;
+  text-align: left;
+  width: 100%;
+}
+
+.card table thead {
+  border: 0;
+  background: #0F635B;
+  color: #fff;
+  text-align: center;
+}
+
+.card table th {
+  border: 0;
+  padding: .5em;
+  margin: 0;
+  font-weight: 100;
+}
+
+.card table tbody th {
+  padding: 10px;
+}
+
+.card table tbody th {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+}
+
+.card table tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+.card table tbody tr:nth-child(even) {
+  background: #fff;
+}
+
+.card table td {
+  border: 0;
+  font-weight: 100;
+}
+
+.card .score {
+  padding: 0;
+  text-align: center;
+  width: 55px;
+}
+
+.card .score button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 1em;
+  font-weight: bold;
+  background: #fff;
+  color: #0F635B;
+  border: 0;
+  box-shadow: 0 0 2px #000;
+  padding: 2px 0;
+  margin: 0 auto;
+  width: 80%;
+  border-radius: 5px;
+  transition: all 500ms;
+}
+
+.card .score button .fa-check-circle {
+  font-size: .8em;
+}
+
+.card .score button:hover,
+.card .score button:focus {
+  background: #0F635B;
+  color: #fff;
+  transition: all 500ms;
+}

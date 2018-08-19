@@ -1,0 +1,17 @@
+
+.pit {
+  width: 100px;
+  height: 100px;
+  border-radius: 500px;
+  border: 1px solid;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 12px;
+  align-items: center;
+}
+
+.pit.store {
+  height: 250px;
+}

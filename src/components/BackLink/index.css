@@ -1,0 +1,24 @@
+.back-link {
+  color: #DEE8E6;
+  font-size: 1.75em;
+  font-weight: 100;
+  text-decoration: none;
+  margin: 15px auto;
+  display: inline-block;
+  transition: all .75s;
+  padding: 15px 5px;
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+}
+
+.back-link:hover,
+.back-link:focus {
+  transition: all .75s;
+  border-top: 2px solid #DEE8E6;
+  border-bottom: 2px solid #DEE8E6;
+  outline: 0;
+}
+
+.back-link span {
+  margin-left: 10px;
+}

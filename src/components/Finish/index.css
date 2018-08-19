@@ -1,0 +1,54 @@
+.finisher {
+  background: #1D1E19;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2em;
+}
+
+.finisher h1 {
+  color: #fff;
+  font-size: 6em;
+  margin: 0;
+}
+
+.finisher .finals {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.finisher .finals > div {
+  width: 150px;
+  margin: 0 15px 15px;
+  text-align: center;
+}
+
+.finisher .finals p {
+  font-size: 1.3em;
+  margin: 10px 0;
+}
+
+.finisher .finals h2 {
+  border-bottom: 3px solid #fff;
+}
+
+.finisher button {
+  background-color: #0F635B;
+  color: #fff;
+  padding: 10px 60px;
+  font-size: 2em;
+  border: 0;
+  font-weight: 100;
+  transition: all .75s;
+}
+
+.finisher button:focus,
+.finisher button:hover {
+  transition: all .75s;
+  color: #0F635B;
+  background-color: #fff;
+}
