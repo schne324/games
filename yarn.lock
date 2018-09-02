@@ -1544,6 +1544,10 @@ commander@^2.11.0:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
+common-tags@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/common-tags/-/common-tags-1.8.0.tgz#8e3153e542d4a39e9b10554434afaaf98956a937"
+
 commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
@@ -5569,9 +5573,9 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
-react-offscreen@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-offscreen/-/react-offscreen-1.0.2.tgz#7bca405ce0eed458e3cedb4e52734e0e2f25bd84"
+react-offscreen@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-offscreen/-/react-offscreen-1.0.3.tgz#f01a38f83455680b96ab3b287a2f182006653ce1"
   dependencies:
     prop-types "^15.6.0"
 

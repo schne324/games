@@ -8,7 +8,7 @@ import './index.css';
 export default function App() {
   return (
     <Router>
-      <div>
+      <div className='top-wrap'>
         <Route exact path='/' component={Dashboard} />
         <Route path='/y5e' component={Yahtzee} />
         <Route path='/mancala' component={Mancala} />

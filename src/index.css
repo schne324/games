@@ -12,6 +12,7 @@ body {
   background: #DEE8E6;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
+  font-weight: 200;
 }
 
 :focus {
@@ -29,6 +30,18 @@ header {
 
 footer {
   padding: .5em;
+  margin-top: auto;
+  color: #DEE8E6;
+  text-align: center;
+  font-weight: 100;
+}
+
+footer a {
+  color: #DEE8E6;
+}
+
+footer a:focus {
+  outline-color: #DEE8E6;
 }
 
 header h1 {
@@ -37,9 +50,12 @@ header h1 {
 }
 
 main {
-  padding: 1em;
   margin: 0 auto;
   max-width: 900px;
+}
+
+.field {
+  padding: 15px;
 }
 
 h1 {
@@ -53,7 +69,7 @@ h1 {
 h2 {
   text-align: center;
   font-size: 2em;
-  font-weight: 100;
+  font-weight: 400;
   margin: 0;
 }
 
@@ -76,7 +92,13 @@ h2 {
   background-color: #fff;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 915px) {
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 747px) {
   body {
     font-size: 12px;
   }

@@ -12,6 +12,7 @@
   align-items: center;
   transition: all 1s;
   box-shadow: 0;
+  margin: 2.5px;
 }
 
 .pit.store {
@@ -23,8 +24,14 @@
 }
 
 .pit.enabled {
-  box-shadow: 0 0 10px #000, 0 0 0 2px #0F635B;
+  box-shadow: 0 0 10px #000, 0 0 0 4px #0F635B;
   transition: all 1s;
+}
+
+.pit:focus {
+  outline: 2px solid;
+  outline-offset: 2px;
+  transition: none;
 }
 
 @keyframes greenFlash {

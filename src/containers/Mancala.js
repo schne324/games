@@ -28,7 +28,6 @@ export default class Mancala extends Container {
   setStatus = status => this.setState({ status }, this.setLocalStorage);
   reset = () => {
     localStorage.mancalaState = null;
-    debug('RESETTING....', initialStateFactory());
     this.setState(initialStateFactory(), this.setLocalStorage)
   };
 
@@ -38,6 +37,7 @@ export default class Mancala extends Container {
     if (this.state.current === 1) {
       this.botTurn();
     }
+    debug('welcome to mancala: ', this.state);
   }
 
   /**
@@ -65,7 +65,7 @@ export default class Mancala extends Container {
     const isStore = lastPit.type === 'store';
     const isOwnSide = this.isOwnSide(lastIndex);
     const msg = {
-      index, lastIndex, user: this.state.current, stolen: false
+      index, lastIndex, isStore, user: this.state.current, stolen: false
     };
 
     // check if landed on an empty pit on own side
@@ -79,7 +79,7 @@ export default class Mancala extends Container {
         updatedPits[idx] = updateStoneCount(updatedPits[idx], sum);
         updatedPits[counter] = { ...updatedPits[counter], stoneCount: 0 };
         updatedPits[lastIndex] = { ...updatedPits[lastIndex], stoneCount: 0 };
-        msg.stolen = true
+        msg.stolen = true;
       }
     }
 

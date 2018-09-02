@@ -5,3 +5,9 @@
   top: 0;
   bottom: 0;
 }
+
+.top-wrap {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
