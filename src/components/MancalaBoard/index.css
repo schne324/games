@@ -1,5 +1,16 @@
+.mancala-board {
+  padding: 5em;
+}
+
 .pits {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+}
+
+.pits .col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
 }

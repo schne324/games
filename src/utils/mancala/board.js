@@ -16,3 +16,36 @@ export const freshPits = () => {
 
   return pits;
 };
+
+export const getTargetIndicies = (index, total, skipIndex) => {
+  const indicies = [];
+  let current = index;
+
+  while (indicies.length < total) {
+    const nextIndex = getNextIndex(current, skipIndex);
+    indicies.push(nextIndex);
+    current = nextIndex;
+  }
+
+  return indicies;
+}
+
+/**
+ * calculates the next pit index
+ * @param  {Number} index     current index
+ * @param  {Number} skipIndex current skip index (based on current turn)
+ * @return {Number}           next index
+ */
+export const getNextIndex = (index, skipIndex) => {
+  let next = index + 1;
+
+  if (next === skipIndex) {
+    next = skipIndex + 1;
+  }
+
+  if (next > 13) {
+    next = 0;
+  }
+
+  return next;
+};

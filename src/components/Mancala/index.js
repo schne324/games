@@ -23,8 +23,7 @@ export default function Yahtzee() {
               case 'started':
                 return (
                   <Started name='Mancala'>
-                    <h2>Coming Soon</h2>
-                    {/* <MancalaBoard /> */}
+                    <MancalaBoard />
                   </Started>
                 );
               case 'finished':
@@ -43,5 +42,5 @@ export default function Yahtzee() {
         }
       </Subscribe>
     </Provider>
-  )
+  );
 }

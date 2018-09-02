@@ -1,6 +1,11 @@
 .stone {
   background: #000;
-  width: 25px;
-  height: 25px;
+  width: 1.5625em;
+  height: 1.5625em;
   border-radius: 50%;
+}
+
+
+.condensed .stone {
+  margin: -5px;
 }

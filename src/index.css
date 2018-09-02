@@ -21,7 +21,14 @@ body {
 
 header, footer {
   background: #1D1E19;
-  padding: 50px;
+}
+
+header {
+  padding: 3em;
+}
+
+footer {
+  padding: .5em;
 }
 
 header h1 {
@@ -67,4 +74,10 @@ h2 {
   transition: all .75s;
   color: #0F635B;
   background-color: #fff;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 12px;
+  }
 }

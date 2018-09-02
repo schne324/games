@@ -14,20 +14,24 @@ export default function MancalaBoard() {
     <Provider>
       <Subscribe to={[MancalaContainer]}>
         {
-          ({ go, state: { pits, current } }) => (
+          ({ go, state: { pits, current, lastIndex } }) => (
             <div className='mancala-board'>
               <div role='grid' className='pits'>
                 <div className='col'>
-                  <Pit pit={pits[13]} />
+                  <Pit bot pit={pits[13]} highlight={lastIndex === 13} />
                 </div>
                 {pairs.map(([ first, second ], i) => (
                   <div className='col' key={`pair-${i}`}>
-                    <Pit pit={pits[first]} />
-                    <Pit pit={pits[second]} onClick={() => go(second)} />
+                    <Pit bot pit={pits[first]} highlight={first === lastIndex} />
+                    <Pit
+                      pit={pits[second]}
+                      onClick={() => go(second)}
+                      highlight={second === lastIndex}
+                    />
                   </div>
                 ))}
                 <div className='col'>
-                  <Pit pit={pits[6]} />
+                  <Pit pit={pits[6]} highlight={lastIndex === 6} />
                 </div>
               </div>
             </div>
