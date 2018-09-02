@@ -50,8 +50,12 @@ header h1 {
 }
 
 main {
-  margin: auto;
+  margin: 0 auto;
   max-width: 900px;
+}
+
+.field {
+  padding: 15px;
 }
 
 h1 {

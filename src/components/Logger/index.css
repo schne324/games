@@ -1,0 +1,14 @@
+ol[role='log'] {
+  height: 75px;
+  border: 1px solid #000;
+  overflow-y: auto;
+  margin: 0;
+  padding: 4px;
+}
+
+.game-log {
+  font-size: 1.3em;
+  padding: 0;
+  margin: 20px 0 0 0;
+  text-align: left;
+}
