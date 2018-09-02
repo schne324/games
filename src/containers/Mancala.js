@@ -28,7 +28,6 @@ export default class Mancala extends Container {
   setStatus = status => this.setState({ status }, this.setLocalStorage);
   reset = () => {
     localStorage.mancalaState = null;
-    debug('RESETTING....', initialStateFactory());
     this.setState(initialStateFactory(), this.setLocalStorage)
   };
 
@@ -38,6 +37,7 @@ export default class Mancala extends Container {
     if (this.state.current === 1) {
       this.botTurn();
     }
+    debug('welcome to mancala: ', this.state);
   }
 
   /**

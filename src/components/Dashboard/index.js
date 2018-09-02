@@ -16,6 +16,16 @@ export default function Dashboard() {
           <Item to='/y5e'>Y5E</Item>
         </ul>
       </main>
+      <footer>
+        <p>Found an issue? Want to contribute? This is an open source project!</p>
+        <a
+          href='https://github.com/schne324/games'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          View on github
+        </a>
+      </footer>
     </Fragment>
   );
 }
