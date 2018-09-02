@@ -14,3 +14,14 @@
   justify-content: space-around;
   text-align: center;
 }
+
+h2 {
+  padding: 10px;
+  transition: all 1s;
+}
+
+h2.current {
+  transition: all 1s;
+  background: #0F635B;
+  color: #fff;
+}

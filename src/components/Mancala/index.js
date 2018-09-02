@@ -13,7 +13,7 @@ export default function Yahtzee() {
       <Subscribe to={[MancalaContainer, GlobalContainer]}>
         {
           ({
-            reset, setStatus, state: { status }
+            reset, setStatus, state: { status, pits }
           }, {
             state: { username }
           }) => {
@@ -23,14 +23,14 @@ export default function Yahtzee() {
               case 'started':
                 return (
                   <Started name='Mancala'>
-                    <MancalaBoard />
+                    <MancalaBoard username={username} />
                   </Started>
                 );
               case 'finished':
                 return (
                   <Finish
-                    userScore={77}
-                    botScore={7}
+                    userScore={pits[6].stoneCount}
+                    botScore={pits[13].stoneCount}
                     reset={reset}
                     setStatus={setStatus}
                   />

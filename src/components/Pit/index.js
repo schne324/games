@@ -6,6 +6,14 @@ import Stone from '../Stone';
 import './index.css';
 
 export default class Pit extends Component {
+  static displayName = 'Pit';
+  static propTypes = {
+    pit: PropTypes.object.isRequired,
+    highlight: PropTypes.bool.isRequired,
+    enabled: PropTypes.bool,
+    bot: PropTypes.bool
+  };
+  static defaultProps = { bot: false, enabled: false };
   state = { showHighlight: true }
   componentDidUpdate(prevProps) {
     if (prevProps.pit.stoneCount === this.props.pit.stoneCount) {
@@ -14,20 +22,24 @@ export default class Pit extends Component {
 
     this.setState({ showHighlight: true });
     setTimeout(() => {
-      console.log('setting it to false');
+      if (!this.el || !document.contains(this.el)) { return; }
       this.setState({ showHighlight: false })
     }, (2e3 - 1));
   }
 
   render() {
     const { showHighlight } = this.state;
-    const { highlight, bot, pit: { type, stoneCount }, ...other } = this.props;
+    const { highlight, bot, enabled, pit: { type, stoneCount }, ...other } = this.props;
     const count = (<p>{stoneCount}</p>);
     const c = [
-      'pit', type, stoneCount > 6 && 'condensed', showHighlight && highlight && 'highlight'
+      'pit',
+      type,
+      stoneCount > 6 && 'condensed',
+      showHighlight && highlight && 'highlight',
+      enabled && 'enabled'
     ].filter(v => v).join(' ');
     return (
-      <div>
+      <div ref={el => this.el = el}>
         {bot && count}
         <div
           className={c}
@@ -44,34 +56,3 @@ export default class Pit extends Component {
     );
   }
 }
-//
-// export default function Pit({ highlight, bot, pit: { type, stoneCount }, ...other }) {
-//   const count = (<p>{stoneCount}</p>);
-//   const c = [
-//     'pit', type, stoneCount > 6 && 'condensed', highlight && 'highlight'
-//   ].filter(v => v).join(' ');
-//   return (
-//     <div>
-//       {bot && count}
-//       <div
-//         className={c}
-//         {...other}
-//       >
-//         {
-//           (new Array(stoneCount))
-//             .fill('')
-//             .map((_, i) => <Stone key={`stone-${i}`} />)
-//         }
-//       </div>
-//       {!bot && count}
-//     </div>
-//   );
-// }
-
-Pit.displayName = 'Pit';
-Pit.propTypes = {
-  pit: PropTypes.object.isRequired,
-  highlight: PropTypes.bool.isRequired,
-  bot: PropTypes.bool
-};
-Pit.defaultProps = { bot: false };

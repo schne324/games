@@ -10,6 +10,8 @@
   justify-content: space-around;
   padding: 12px;
   align-items: center;
+  transition: all 1s;
+  box-shadow: 0;
 }
 
 .pit.store {
@@ -18,6 +20,11 @@
 
 .pit.highlight {
   animation: greenFlash 3s;
+}
+
+.pit.enabled {
+  box-shadow: 0 0 10px #000, 0 0 0 2px #0F635B;
+  transition: all 1s;
 }
 
 @keyframes greenFlash {

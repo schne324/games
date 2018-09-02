@@ -2,8 +2,8 @@ import { Container } from 'unstated';
 import createDebug from '../utils/debug';
 import { freshPits, getTargetIndicies } from '../utils/mancala/board';
 
-const debug = createDebug('mancala:container');
 const BOT_TIMEOUT = 2e3;
+const debug = createDebug('mancala:container');
 const pitMap = [
   [ 0, 1, 2, 3, 4, 5 ], // user
   [ 12, 11, 10, 9, 8, 7 ] // bot
@@ -13,17 +13,32 @@ const updateStoneCount = (target, increment) => ({
   ...target,
   stoneCount: target.stoneCount + increment
 });
-const initialState = {
+const initialStateFactory = () => ({
   status: 'not-started',
   pits: [ ...freshPits(), ...freshPits() ],
   current: 0,
-  log: []
-};
+  log: [],
+  lastIndex: null,
+  ...JSON.parse(localStorage.mancalaState || '{}')
+})
+
 
 export default class Mancala extends Container {
-  state = initialState
-  setStatus = status => this.setState({ status })
-  reset = () => this.setState(initialState)
+  state = initialStateFactory();
+  setStatus = status => this.setState({ status }, this.setLocalStorage);
+  reset = () => {
+    localStorage.mancalaState = null;
+    debug('RESETTING....', initialStateFactory());
+    this.setState(initialStateFactory(), this.setLocalStorage)
+  };
+
+  constructor() {
+    super();
+
+    if (this.state.current === 1) {
+      this.botTurn();
+    }
+  }
 
   /**
    * Automates a turn by taking target pit's
@@ -49,21 +64,24 @@ export default class Mancala extends Container {
     const lastPit = updatedPits[lastIndex];
     const isStore = lastPit.type === 'store';
     const isOwnSide = this.isOwnSide(lastIndex);
+    const msg = {
+      index, lastIndex, user: this.state.current, stolen: false
+    };
 
+    // check if landed on an empty pit on own side
     if (isOwnSide && lastPit.stoneCount === 1) {
       const counter = getCounterPit(lastIndex);
       const counterPit = updatedPits[counter];
 
-      if (!isStore && counterPit.stoneCount) {
+      if (!isStore && counterPit.stoneCount) { // Steal!
         const sum = counterPit.stoneCount + lastPit.stoneCount;
         const idx = this.state.skipIndex === 6 ? 13 : 6;
         updatedPits[idx] = updateStoneCount(updatedPits[idx], sum);
         updatedPits[counter] = { ...updatedPits[counter], stoneCount: 0 };
         updatedPits[lastIndex] = { ...updatedPits[lastIndex], stoneCount: 0 };
+        msg.stolen = true
       }
     }
-
-    const msg = { index, user: this.state.current };
 
     this.setState({
       lastIndex,
@@ -74,6 +92,7 @@ export default class Mancala extends Container {
         ${this.state.current === 0 ? 'User' : 'Bot'} went on ${index}.
         Landed on ${lastIndex} (${lastPit.type})
       `);
+      this.setLocalStorage();
       this.nextTurn(isStore);
     });
   };
@@ -91,17 +110,18 @@ export default class Mancala extends Container {
   nextTurn = shouldSkip => {
     const { current } = this.state;
 
+    if (this.isFinished()) {
+      return this.setState({
+        pits: this.pitRake()
+      }, () => {
+        const newState = { status: 'finished' };
+        this.setLocalStorage(newState);
+        return setTimeout(() => this.setState(newState), BOT_TIMEOUT);
+      });
+    }
+
     if (shouldSkip) {
       return current === 1 ? setTimeout(this.botTurn, BOT_TIMEOUT) : null;
-    }
-
-    if (!pitMap[current === 0 ? 1 : 0].find(pitdex => this.state.pits[pitdex].stoneCount)) {
-      console.log(' DONE!!! here is where weshould empty pits ');
-      return this.setState({ status: 'finished' });
-    }
-
-    if (!this.state.pits.find(pit => pit.stoneCount)) { // end of game
-      return this.setState({ status: 'finished' });
     }
 
     const shouldBot = current === 0;
@@ -112,6 +132,7 @@ export default class Mancala extends Container {
       if (!shouldBot) { return; }
 
       setTimeout(this.botTurn, BOT_TIMEOUT);
+      this.setLocalStorage();
     });
   };
 
@@ -152,6 +173,44 @@ export default class Mancala extends Container {
       return this.go(rando);
     }
 
-    return this.setState({ status: 'finished' });
+    return this.setState({ status: 'finished' }, this.setLocalStorage);
   };
+
+  setLocalStorage = (force = {}) => {
+    const updatedState = { ...this.state, ...force };
+    debug('updating localStorage.mancalaState', updatedState);
+    localStorage.mancalaState = JSON.stringify(updatedState);
+  }
+
+  /**
+   * The game is finished under if either player has 0 on the board
+   * @return {Boolean}
+   */
+  isFinished() {
+    const { pits } = this.state;
+    return pitMap.find(map => map.every(i => !pits[i].stoneCount))
+  }
+
+  pitRake() {
+    const pits = [...this.state.pits];
+    pitMap.forEach((map, i) => {
+      const storeIndex = i === 0 ? 6 : 13;
+      const storeTotal = map.reduce((acc, val) => {
+        const pit = pits[val];
+        debug({ acc, val, pit });
+        acc += pit.stoneCount;
+        pits[val] = { ...pit, stoneCount: 0 }
+        return acc;
+      }, 0);
+
+      debug(
+        `adding ${storeTotal} to ${storeIndex === 6 ? 'users' : 'bots'} store currently`,
+        {...pits[storeIndex]}
+      );
+
+      pits[storeIndex] = updateStoneCount(pits[storeIndex], storeTotal);
+    });
+
+    return pits;
+  }
 }
