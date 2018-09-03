@@ -17,10 +17,10 @@ const initialStateFactory = () => ({
   status: 'not-started',
   pits: [ ...freshPits(), ...freshPits() ],
   current: 0,
+  skipIndex: 13,
   log: [],
   lastIndex: null
-})
-
+});
 
 export default class Mancala extends Container {
   state = initialStateFactory();
