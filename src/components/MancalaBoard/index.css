@@ -34,4 +34,5 @@ h2.current {
   transition: all 1s;
   background: #0F635B;
   color: #fff;
+  box-shadow: 0 0 0 1px #fff, 0 0 15px #000;
 }

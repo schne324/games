@@ -18,18 +18,14 @@ const initialStateFactory = () => ({
   pits: [ ...freshPits(), ...freshPits() ],
   current: 0,
   log: [],
-  lastIndex: null,
-  ...JSON.parse(localStorage.mancalaState || '{}')
+  lastIndex: null
 })
 
 
 export default class Mancala extends Container {
   state = initialStateFactory();
-  setStatus = status => this.setState({ status }, this.setLocalStorage);
-  reset = () => {
-    localStorage.mancalaState = null;
-    this.setState(initialStateFactory(), this.setLocalStorage)
-  };
+  setStatus = status => this.setState({ status });
+  reset = () => this.setState(initialStateFactory());
 
   constructor() {
     super();
@@ -92,7 +88,6 @@ export default class Mancala extends Container {
         ${this.state.current === 0 ? 'User' : 'Bot'} went on ${index}.
         Landed on ${lastIndex} (${lastPit.type})
       `);
-      this.setLocalStorage();
       this.nextTurn(isStore);
     });
   };
@@ -115,7 +110,6 @@ export default class Mancala extends Container {
         pits: this.pitRake()
       }, () => {
         const newState = { status: 'finished' };
-        this.setLocalStorage(newState);
         return setTimeout(() => this.setState(newState), BOT_TIMEOUT);
       });
     }
@@ -132,7 +126,6 @@ export default class Mancala extends Container {
       if (!shouldBot) { return; }
 
       setTimeout(this.botTurn, BOT_TIMEOUT);
-      this.setLocalStorage();
     });
   };
 
@@ -142,45 +135,41 @@ export default class Mancala extends Container {
    *    • Check if move would leave vulnerable next turn
    */
   botTurn = () => {
-    let inStore, stealer, rando;
+    let inStore, stealer, randos = [];
     const pits = [...this.state.pits];
+    const botPits = pitMap[1];
 
-    for (let i = 7; i < 13; i++) {
-      const { stoneCount } = pits[i];
-      const distance = 13 - i;
-      const indicies = getTargetIndicies(i, stoneCount, this.state.skipIndex);
+    botPits.forEach(botPit => {
+      const { stoneCount } = pits[botPit];
+      const distance = 13 - botPit;
+      const indicies = getTargetIndicies(botPit, stoneCount, this.state.skipIndex);
       const lastIndex = indicies[indicies.length - 1];
       const lastPit = pits[lastIndex];
       const counterPit = pits[getCounterPit(lastIndex)];
-      const canSteal = counterPit && !this.isOwnSide(lastIndex) && (
-        counterPit.stoneCount.length && !lastPit.stoneCount.length
+      const isOwnSide = this.isOwnSide(lastIndex)
+      const canSteal = counterPit && isOwnSide && (
+        counterPit.stoneCount && !lastPit.stoneCount
       );
 
       if (distance === stoneCount) {
-        inStore = i;
+        inStore = botPit;
       } else if (canSteal) {
-        stealer = i;
+        stealer = botPit;
       } else if (stoneCount) {
-        rando = i;
+        randos.push(botPit);
       }
-    }
+    });
 
     if (typeof inStore !== 'undefined') {
       return this.go(inStore);
     } else if (typeof stealer !== 'undefined') {
       return this.go(stealer);
-    } else if (typeof rando !== 'undefined') {
-      return this.go(rando);
+    } else if (randos.length) {
+      return this.go(randos[Math.floor(Math.random() * randos.length)]);
     }
 
-    return this.setState({ status: 'finished' }, this.setLocalStorage);
+    return this.setState({ status: 'finished' });
   };
-
-  setLocalStorage = (force = {}) => {
-    const updatedState = { ...this.state, ...force };
-    debug('updating localStorage.mancalaState', updatedState);
-    localStorage.mancalaState = JSON.stringify(updatedState);
-  }
 
   /**
    * The game is finished under if either player has 0 on the board

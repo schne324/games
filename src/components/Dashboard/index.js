@@ -5,7 +5,6 @@ import './index.css';
 const Item = ({ ...other }) => (<li><Link {...other} /></li>);
 
 export default function Dashboard() {
-  localStorage.mancalaState = null;
   return (
     <Fragment>
       <header><h1>A11y Games</h1></header>
