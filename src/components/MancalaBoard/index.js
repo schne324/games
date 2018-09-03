@@ -35,7 +35,7 @@ export default class MancalaBoard extends Component {
                   <input
                     type='checkbox'
                     id='game-log-checkbox'
-                    checked
+                    checked={this.state.gameLog}
                     onChange={() => {
                       this.setState({ gameLog: !this.state.gameLog });
                     }}
