@@ -17,7 +17,8 @@ export const scoreStraight = (dice, reg, pts) => {
 export const getOccurances = dice => (
   dice
     .map(die => dice.filter(d => die.value === d.value).length)
-    .sort((a, b) => a < b)
+    .sort()
+    .reverse()
 );
 
 export const scoreOfAKind = (dice, min, pts) => {
