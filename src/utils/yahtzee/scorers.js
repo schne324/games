@@ -14,12 +14,12 @@ export const scoreStraight = (dice, reg, pts) => {
   return reg.test(valueString) ? pts : 0;
 };
 
-export const getOccurances = dice => (
-  dice
-    .map(die => dice.filter(d => die.value === d.value).length)
-    .sort()
-    .reverse()
-);
+export const getOccurances = dice => dice.reduce((counts, die) => {
+  counts[die.value] = counts[die.value] || 0;
+  counts[die.value]++;
+  return counts
+}, {});
+
 
 export const scoreOfAKind = (dice, min, pts) => {
   const occurances = getOccurances(dice).sort((a, b) => b - a);
